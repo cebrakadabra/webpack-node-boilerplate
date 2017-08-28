@@ -1,0 +1,16 @@
+{
+  "name": "webpack-node-boilerplate",
+  "scripts": {
+  },
+  "env": {},
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
