@@ -5,6 +5,7 @@ import CleanWebpackPlugin from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 
+import removeNull from './internal/utils/removeNull';
 import NotificationPlugin from './internal/webpack/NotificationPlugin';
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -27,14 +28,6 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 	}
 });
 
-
-
-
-function removeNull(arr) {
-    return arr.filter(function (el) {
-        return el !== undefined;
-    });
-}
 
 const UglifyJsPluginConfig = isProd ? new UglifyJsPlugin({
     test: /\.js($|\?)/i,
@@ -71,6 +64,7 @@ module.exports = {
   },
   plugins: removeNull([
 		new CleanWebpackPlugin(['build']),
+        UglifyJsPluginConfig,
         new webpack.DefinePlugin({
             NODE_ENV: process.env.NODE_ENV
         }),
