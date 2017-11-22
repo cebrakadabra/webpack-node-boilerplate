@@ -1,10 +1,14 @@
-const path = require('path');
-const fs = require('fs');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const NotificationPlugin = require('./internal/webpack/NotificationPlugin');
+import path from 'path';
+import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CleanWebpackPlugin from 'clean-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+
+import NotificationPlugin from './internal/webpack/NotificationPlugin';
+
+const isProd = process.env.NODE_ENV === 'production';
+
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './src/index.html',
   filename: 'index.html',
@@ -23,6 +27,22 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 	}
 });
 
+
+
+
+function removeNull(arr) {
+    return arr.filter(function (el) {
+        return el !== undefined;
+    });
+}
+
+const UglifyJsPluginConfig = isProd ? new UglifyJsPlugin({
+    test: /\.js($|\?)/i,
+    cache: true,
+    parallel: true,
+    sourceMap: true
+}) : null;
+
 module.exports = {
   entry: {
 		main: './src/js/main'
@@ -40,25 +60,20 @@ module.exports = {
 		overlay: {
 		  warnings: true,
 		  errors: true
-		},
-		setup: function(app) {
-			app.get('/versions', function(req, res) {
-				const getDirs = p => fs.readdirSync(p).filter(f => fs.statSync(p+"/"+f).isDirectory());
-				const dirs = getDirs(path.resolve(__dirname, './src/dist/vendor/bitmovin/src'));
-				res.setHeader('Content-Type', 'application/json');
-    		res.send(JSON.stringify({ versions: dirs }));
-			});
-		},
+		}
 	},
   module: {
     loaders: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /(node_modules|src\/dist\/vendor\/bitmovin)/ },
       { test: /\.css|.less?$/, loader: 'style-loader!css-loader!less-loader', exclude: /node_modules/ },
-	    { test: /\.png?$/, loader: 'file-loader', exclude: /node_modules/ }
+        { test: /\.png?$/, loader: 'file-loader', exclude: /node_modules/ }
     ]
   },
-  plugins: [
+  plugins: removeNull([
 		new CleanWebpackPlugin(['build']),
+        new webpack.DefinePlugin({
+            NODE_ENV: process.env.NODE_ENV
+        }),
 		new CopyWebpackPlugin([
 			{ from: 'src/vendor', to: 'vendor' },
 			{ from: 'public', to: '' },
@@ -66,5 +81,6 @@ module.exports = {
 		new webpack.HotModuleReplacementPlugin(),
 		new NotificationPlugin(),
 		HtmlWebpackPluginConfig,
-	]
+
+	])
 };

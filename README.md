@@ -9,3 +9,7 @@ Clone Repository ...
 `yarn watch`
 
 # TODO enhance readme
+
+babel-cli
+node > 8.x
+yarn
