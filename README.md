@@ -19,3 +19,4 @@ make sure you have node 8.x or higher
   - 🔥 Extreme live development - hot reloading of ALL changes to client/server source, with auto development server restarts when your application configuration changes.  All this with a high level of error tolerance and verbose logging to the console.
   - 🏜 Image bundling support
   - 🎛 Preconfigured to support development and optimised production builds.
+  - 🔔 Notification Plugin to get build notifications on Mac OSX
