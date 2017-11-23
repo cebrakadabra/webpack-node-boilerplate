@@ -13,7 +13,6 @@ make sure you have node 8.x or higher
 ### Quick Feature List
 
   - 🚄 `express` server.
-  - 🎭 `jest` as the test framework.
   - 🖌 Very basic CSS support - it's up to you to extend it with CSS Modules etc. but it knows LESS :)
   - 📦 All source is bundled using Webpack v3.
   - 🚀 Full ES2017+ support
