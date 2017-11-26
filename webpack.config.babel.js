@@ -8,6 +8,23 @@ import UglifyJsPluginConfig from './internal/webpack/UglifyPlugin';
 import HtmlWebpackPluginConfig from './internal/webpack/HtmlWebpackPlugin';
 import NotificationPlugin from './internal/webpack/NotificationPlugin';
 
+const plugins = [
+    new CleanWebpackPlugin(['build']),
+    new webpack.DefinePlugin({
+        NODE_ENV: process.env.NODE_ENV,
+    }),
+    new CopyWebpackPlugin([
+        { from: 'src/vendor', to: 'vendor' },
+        { from: 'public', to: '' },
+    ]),
+    new webpack.HotModuleReplacementPlugin(),
+    new NotificationPlugin(),
+];
+
+const customPlugins = removeNull([ UglifyJsPluginConfig, HtmlWebpackPluginConfig]);
+
+const webpackPlugins = [...plugins, ...customPlugins];
+
 module.exports = {
     entry: {
         main: './src/js/main',
@@ -34,18 +51,5 @@ module.exports = {
             { test: /\.png?$/, loader: 'file-loader', exclude: /node_modules/ },
         ],
     },
-    plugins: removeNull([
-        new CleanWebpackPlugin(['build']),
-        UglifyJsPluginConfig,
-        new webpack.DefinePlugin({
-            NODE_ENV: process.env.NODE_ENV,
-        }),
-        new CopyWebpackPlugin([
-            { from: 'src/vendor', to: 'vendor' },
-            { from: 'public', to: '' },
-        ]),
-        new webpack.HotModuleReplacementPlugin(),
-        new NotificationPlugin(),
-        HtmlWebpackPluginConfig,
-    ]),
+    plugins: webpackPlugins,
 };
