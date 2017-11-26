@@ -21,7 +21,7 @@ const plugins = [
     new NotificationPlugin(),
 ];
 
-const customPlugins = removeNull([ UglifyJsPluginConfig, HtmlWebpackPluginConfig]);
+const customPlugins = removeNull([UglifyJsPluginConfig, HtmlWebpackPluginConfig]);
 
 const webpackPlugins = [...plugins, ...customPlugins];
 
