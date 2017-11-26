@@ -4,6 +4,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
     template: './src/index.html',
     filename: 'index.html',
     inject: 'body',
+    hash: true,
     chunksSortMode: (chunk1, chunk2) => {
         var orders = ['main'];
         var order1 = orders.indexOf(chunk1.names[0]);
