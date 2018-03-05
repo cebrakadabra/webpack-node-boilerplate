@@ -4,7 +4,7 @@
   "description": "Basic webpack setup with a node express server and some fancy webpack features",
   "main": "app.js",
   "engines": {
-    "node": "8.x"
+    "node": ">=8"
   },
   "scripts": {
     "dev": "webpack-dev-server --open",
