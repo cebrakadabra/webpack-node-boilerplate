@@ -35,9 +35,12 @@ module.exports = {
     },
     devtool: 'inline-source-map',
     devServer: {
-        contentBase: ['./build'],
+        contentBase: path.join(__dirname, 'build'),
         port: process.env.PORT || 3000,
         host: process.env.HOST || 'localhost',
+        proxy: {
+            '/api': 'http://localhost:5000',
+        },
         hot: true,
         overlay: {
             warnings: true,

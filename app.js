@@ -21,9 +21,13 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
+app.get('/api/test-endpoint', function(req, res) {
+   res.send({ status: 200, message: 'OK' });
+});
+
 
 // set our port
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 5000;
 var server_ip_address = 'localhost';
 var env = process.env.NODE_ENV || 'development';
 

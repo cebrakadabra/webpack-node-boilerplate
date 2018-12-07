@@ -6,8 +6,15 @@ make sure you have node 8.x or higher
 ### Install dependencies with yarn
 `yarn`
 
-### Run local development server
+### Run local webpack dev server for frontend development (auto updates)
 `yarn dev`
+
+### Run local node development server with nodemon
+`yarn start:dev`
+
+### Default API Endpoint implemented
+`/api/endpoint-test`
+This is also proxied through webpack now
 
 
 ### Quick Feature List
