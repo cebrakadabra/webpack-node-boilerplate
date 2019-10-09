@@ -48,7 +48,7 @@ module.exports = {
         }
     },
     module: {
-        loaders: [
+        rules: [
             { test: /\.js$/, loader: 'babel-loader', exclude: /(node_modules|src\/dist\/vendor\/bitmovin)/ },
             { test: /\.css|.less?$/, loader: 'style-loader!css-loader!less-loader', exclude: /node_modules/ },
             { test: /\.png?$/, loader: 'file-loader', exclude: /node_modules/ },
